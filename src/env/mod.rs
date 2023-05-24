@@ -4,13 +4,14 @@ use std::io::{Read, Result, Seek, Write};
 use std::path::Path;
 use std::sync::Arc;
 
+#[cfg(unix)]
 mod default;
-mod obfuscated;
+#[cfg(not(unix))]
 mod fallback;
+mod obfuscated;
 
 #[cfg(unix)]
 pub use default::DefaultFileSystem;
-
 #[cfg(not(unix))]
 pub use fallback::DefaultFileSystem;
 
