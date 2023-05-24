@@ -6,8 +6,14 @@ use std::sync::Arc;
 
 mod default;
 mod obfuscated;
+mod fallback;
 
+#[cfg(unix)]
 pub use default::DefaultFileSystem;
+
+#[cfg(not(unix))]
+pub use fallback::DefaultFileSystem;
+
 pub use obfuscated::ObfuscatedFileSystem;
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
